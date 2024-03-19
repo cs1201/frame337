@@ -147,11 +147,28 @@ int main (int argc, char *argv [])
 					break;
 				case 'i':
 				case 'I':
-					in_fname = argv [i] + 2;
+					if (argv[i][2] != '\0')
+					{
+						in_fname = &argv[i][2];
+					}
+					else
+					{
+						in_fname = argv[i+1];
+						i++;
+					}
 					break;
 				case 'o':
 				case 'O':
-					out_fname = argv [i] + 2;
+					if (argv[i][2] != '\0')
+					{
+						out_fname = &argv[i][2];
+					}
+					else
+					{
+						out_fname = argv[i+1];
+						i++;
+					}
+					break;
 					break;
 				case 'v':
 				case 'V':
@@ -163,7 +180,15 @@ int main (int argc, char *argv [])
 					break;
 				case 'b':
 				case 'B':
-					file_info.bits_per_sample = atoi(((argv[i]) + 2));
+					if (argv[i][2] != "\0")
+					{	
+						file_info.bits_per_sample = atoi(((argv[i]) + 2));
+					}
+					else
+					{
+						file_info.bits_per_sample = atoi((argv[i+1]));
+						i++;
+					}
 					if((file_info.bits_per_sample != 16) && (file_info.bits_per_sample != 24) && (file_info.bits_per_sample != 32))
 					{
 						fprintf (stderr, "\nInvalid Bit Depth!\n\n");
